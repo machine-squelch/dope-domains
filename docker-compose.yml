@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  dopedomains:
+    build: .
+    ports:
+      - "80:3000"
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.dopedomains.rule=Host(`dopedomains.com`)"
+      - "traefik.http.routers.dopedomains.tls=true"
+      - "traefik.http.routers.dopedomains.tls.certresolver=letsencrypt"
+

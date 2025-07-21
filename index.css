@@ -1,0 +1,148 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ==============================
+   Global & Theme
+============================== */
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  transition: background 0.6s ease, color 0.6s ease;
+}
+
+body.dark {
+  background-color: #000;
+  color: #fff;
+}
+
+body.light {
+  background: linear-gradient(135deg, #f9fbfc, #edf1f9, #f7faff);
+  background-size: 400% 400%;
+  animation: bgShift 12s ease infinite;
+  color: #1a1a1a;
+}
+
+@keyframes bgShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ==============================
+   Glass Cards
+============================== */
+.glass {
+  position: relative;
+  background: rgba(30, 30, 30, 0.6);
+  backdrop-filter: blur(35px);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 50px rgba(0, 0, 0, 0.6);
+  transition: all 0.4s ease;
+}
+
+body.light .glass {
+  background: rgba(255, 255, 255, 0.65);
+  box-shadow: 0 8px 40px rgba(150, 150, 150, 0.3);
+}
+
+/* Reflection shimmer */
+.glass::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(120deg, rgba(255,255,255,0.35), rgba(255,255,255,0));
+  transform: rotate(25deg);
+  animation: shimmer 6s infinite linear, glassPulse 4s ease-in-out infinite;
+  opacity: 0.3;
+}
+
+@keyframes shimmer {
+  0% { transform: translate(-100%, -100%) rotate(25deg); }
+  100% { transform: translate(100%, 100%) rotate(25deg); }
+}
+
+@keyframes glassPulse {
+  0%, 100% { opacity: 0.15; }
+  50% { opacity: 0.3; }
+}
+
+/* ==============================
+   Neon Borders (Unified Colors)
+============================== */
+.border-animate {
+  position: relative;
+}
+
+.border-animate::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  padding: 3px;
+  border-radius: inherit;
+  background-size: 300% 300%;
+  animation: neonBorder 6s linear infinite;
+  z-index: -1;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+}
+
+.border-premium::before {
+  background: linear-gradient(90deg, #00e6ff, #00b4ff, #00e6ff);
+  animation-duration: 4s;
+}
+
+.border-mid::before {
+  background: linear-gradient(90deg, #6366f1, #4f46e5, #6366f1);
+  animation-duration: 6s;
+}
+
+.border-moderate::before {
+  background: linear-gradient(90deg, #00ffc6, #00e6a8, #00ffc6);
+  animation-duration: 10s;
+}
+
+@keyframes neonBorder {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ==============================
+   Glow Hover Effects
+============================== */
+.glass:hover {
+  transform: scale(1.03);
+  transition: all 0.3s ease-in-out;
+}
+
+.border-premium:hover {
+  box-shadow: 0 0 30px rgba(0, 230, 255, 0.6);
+}
+
+.border-mid:hover {
+  box-shadow: 0 0 30px rgba(99, 102, 241, 0.6);
+}
+
+.border-moderate:hover {
+  box-shadow: 0 0 30px rgba(0, 255, 198, 0.6);
+}
+
+/* Button hover glow */
+.btn-premium:hover {
+  box-shadow: 0 0 20px rgba(0, 230, 255, 0.6);
+}
+
+.btn-mid:hover {
+  box-shadow: 0 0 20px rgba(99, 102, 241, 0.6);
+}
+
+.btn-moderate:hover {
+  box-shadow: 0 0 20px rgba(0, 255, 198, 0.6);
+}
