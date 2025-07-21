@@ -4,21 +4,24 @@ FROM node:18-alpine
 # Set working directory
 WORKDIR /app
 
-# Copy package files
+# Copy package files first (for better caching)
 COPY package*.json ./
 
-# Install dependencies
-RUN npm ci --only=production
+# Install ALL dependencies (including devDependencies for building)
+RUN npm ci
 
-# Copy built application
-COPY dist/ ./dist/
+# Copy source code
+COPY . .
 
-# Install a simple static file server
+# Build the application
+RUN npm run build
+
+# Install serve globally for serving static files
 RUN npm install -g serve
 
 # Expose port 3000
 EXPOSE 3000
 
-# Start the application
+# Start the application serving the built dist folder
 CMD ["serve", "-s", "dist", "-l", "3000"]
 
